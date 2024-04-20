@@ -1,4 +1,4 @@
-package app
+package main
 
 import "github.com/greenblat17/digital_spb/internal/app"
 

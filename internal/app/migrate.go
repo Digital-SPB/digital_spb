@@ -5,6 +5,7 @@ import (
 	"os"
 	"time"
 
+	// migrate tools
 	"github.com/golang-migrate/migrate/v4"
 	// migrate tools
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
@@ -14,7 +15,7 @@ import (
 )
 
 const (
-	defaultAttempts = 20
+	defaultAttempts = 3
 	defaultTimeout  = time.Second
 )
 
