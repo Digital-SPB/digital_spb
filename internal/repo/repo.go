@@ -27,11 +27,22 @@ type Applicant interface {
 	GetApplicant(ctx context.Context, id int) (entity.Applicant, error)
 }
 
+type ApplicantAuth interface {
+	CreateApplicant(ctx context.Context, input entity.Applicant) (int, error)
+	//GetApplicant(ctx context.Context, eMail, paswwrord string) (entity.Applicant, error)
+}
+
+type Exam interface {
+	AddExam(ctx context.Context, input entity.Exam) (int, error)
+}
+
 type Repositories struct {
 	EducationalDirection
 	StudentAuth
 	Vacancy
 	Applicant
+	ApplicantAuth
+	Exam
 }
 
 func NewRepositories(pg *postgres.Postgres) *Repositories {
@@ -40,5 +51,7 @@ func NewRepositories(pg *postgres.Postgres) *Repositories {
 		StudentAuth:          pgdb.NewStudentAuthRepo(pg),
 		Vacancy:              pgdb.NewVacancyRepo(pg),
 		Applicant:            pgdb.NewApplicantRepo(pg),
+		ApplicantAuth:        pgdb.NewApplicantAuthRepo(pg),
+		Exam:                 pgdb.NewExamRepo(pg),
 	}
 }

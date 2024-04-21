@@ -43,7 +43,7 @@ func (h *Handler) StudentSignUp(c *gin.Context) {
 	// 	return
 	// }
 
-	id, err := h.service.CreateStudent(context.Background(), input)
+	id, err := h.service.StudentAuth.CreateStudent(context.Background(), input)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return

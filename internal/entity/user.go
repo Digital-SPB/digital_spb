@@ -9,14 +9,19 @@ type Applicant struct {
 	Patronymic string `json:"patronymic" binding:"required" db:"patronymic"`
 
 	//1 форма
-	EMail    string `json:"eMail" binding:"required" db:"email"`
+	EMail    string `json:"email" binding:"required" db:"email"`
 	Password string `json:"password" binding:"required" db:"password_hash"`
+
+	//хуй знает какая форма
+	Profession string `json:"profession" binding:"required" db:"profession"`
+	Exams []Exam `json:"exams" binding:"required"`
+	
 }
 
 type Exam struct {//для формы абитуриета
 	Id int `json:"id" db:"id"`
 
-	ApplicantId int    `json:"aplplicant_id" binding:"required" db:"applicant_id"`
+	ApplicantId int    `json:"applicant_id" binding:"required" db:"applicant_id"`
 	ExamName    string `json:"exam_name" binding:"required" db:"exam_name"`
 	ExamMark    int    `json:"exam_mark" binding:"required" db:"exam_mark"`
 }
