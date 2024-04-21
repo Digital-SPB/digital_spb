@@ -13,7 +13,7 @@ type ExamMarks struct {
 
 type ApplicantInput struct {
 	ExamMarks []ExamMarks `json:"exam_marks"`
-	vacancy   string      `json:"vacancy"`
+	Vacancy   string      `json:"vacancy"`
 }
 
 func (h *Handler) ApplicantStudyPlan(c *gin.Context) {

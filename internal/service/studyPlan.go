@@ -4,18 +4,17 @@ import (
 	"context"
 
 	"github.com/greenblat17/digital_spb/internal/entity"
-	"github.com/greenblat17/digital_spb/internal/handlers"
 	"github.com/greenblat17/digital_spb/internal/repo"
 )
 
 type StudyPlanService struct {
-	studyPlan repo.StudyPlan
+	educationalDirectionRepo repo.EducationalDirection
 }
 
-func NewStudyPlanService(studyPlan repo.StudyPlan) *StudyPlanService {
-	return &StudyPlanService{studyPlan: studyPlan}
+func NewStudyPlanService(educationalDirectionRepo repo.EducationalDirection) *StudyPlanService {
+	return &StudyPlanService{educationalDirectionRepo: educationalDirectionRepo}
 }
 
-func (s *StudyPlanService) GetStudyPlans(ctx context.Context, vacancy entity.Vacancy, examMarks []handlers.ExamMarks) ([]entity.EducatitionalDirection, error) {
+func (s *StudyPlanService) GetStudyPlans(ctx context.Context, vacancy entity.Vacancy, examMarks []ExamMarks) ([]entity.EducatitionalDirection, error) {
 	return []entity.EducatitionalDirection{}, nil
 }
