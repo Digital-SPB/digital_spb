@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  backend:
+    container_name: backend
+    image: greenblat17/go-backend
+    networks: 
+    - db-net
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_NAME=spb
+    restart: unless-stopped
+
+  db:
+    container_name: postgres
+    image: postgres:16
+    networks: 
+    - db-net
+    volumes:
+      - ./data:/var/lib/postgresql/data 
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=spb
+    ports:
+      - "5432:5432"
+
+networks:
+  db-net:
+   driver: bridge
+
