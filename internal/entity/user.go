@@ -11,9 +11,11 @@ type Applicant struct {
 	//1 форма
 	EMail    string `json:"eMail" binding:"required" db:"email"`
 	Password string `json:"password" binding:"required" db:"password_hash"`
+
+	Profession string `json:"profession" binding:"required" db:"profession"`
 }
 
-type Exam struct {//для формы абитуриета
+type Exam struct { //для формы абитуриета
 	Id int `json:"id" db:"id"`
 
 	ApplicantId int    `json:"aplplicant_id" binding:"required" db:"applicant_id"`
@@ -35,8 +37,6 @@ type Student struct {
 
 	//3 форма
 	University string `json:"university" binding:"required" db:"university"`
-	Direction string `json:"direction" binding:"required" db:"direction"`
-	Group string `json:"group" binding:"required" db:"group"`
+	Direction  string `json:"direction" binding:"required" db:"direction"`
+	Group      string `json:"group" binding:"required" db:"group"`
 }
-
-

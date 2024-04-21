@@ -11,6 +11,7 @@ import (
 type EducationalDirection interface {
 	CreateEducationalDirection(ctx context.Context, education entity.EducatitionalDirection) (int, error)
 	CountEducationalDirection(ctx context.Context) (int, error)
+	GetEducationalDirections(ctx context.Context) ([]entity.EducatitionalDirection, error)
 }
 
 type StudentAuth interface {
@@ -21,10 +22,12 @@ type StudentAuth interface {
 type Vacancy interface {
 	CreateVacancy(ctx context.Context, vacancy entity.Vacancy) (int, error)
 	CountVacancy(ctx context.Context) (int, error)
+	GetVacanciesByEducationId(ctx context.Context, educationId int) ([]entity.Vacancy, error)
 }
 
 type Applicant interface {
 	GetApplicant(ctx context.Context, id int) (entity.Applicant, error)
+	GetExam(ctx context.Context, applicantId int) ([]entity.Exam, error)
 }
 
 type Repositories struct {

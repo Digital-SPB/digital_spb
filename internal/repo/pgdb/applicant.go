@@ -25,3 +25,22 @@ func (p *ApplicantRepo) GetApplicant(ctx context.Context, id int) (entity.Applic
 
 	return applicant, nil
 }
+
+func (p *ApplicantRepo) GetExam(ctx context.Context, applicantId int) ([]entity.Exam, error) {
+	query := "SELECT * FROM applicants WHERE applicant_id = $1"
+	rows, err := p.Pool.Query(ctx, query, applicantId)
+	if err != nil {
+		return nil, err
+	}
+
+	var exams []entity.Exam
+	for rows.Next() {
+		var exam entity.Exam
+		if err := rows.Scan(&exam.Id, &exam.ExamName, &exam.ExamMark, &exam.ApplicantId); err != nil {
+			return nil, err
+		}
+		exams = append(exams, exam)
+	}
+
+	return exams, nil
+}

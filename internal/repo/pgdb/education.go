@@ -37,3 +37,23 @@ func (r *EducationalDirectionRepo) CountEducationalDirection(ctx context.Context
 	}
 	return count, nil
 }
+
+func (r *EducationalDirectionRepo) GetEducationalDirections(ctx context.Context) ([]entity.EducatitionalDirection, error) {
+	query := "SELECT id, name, group_name, count_budget, count_contact, price, subject1, subject2, subject3, value1, value2, value3, sum, competive_b, competive_k FROM educational_direction"
+	rows, err := r.Pool.Query(ctx, query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var educationalDirections []entity.EducatitionalDirection
+	for rows.Next() {
+		var education entity.EducatitionalDirection
+		if err := rows.Scan(&education.Id, &education.Name, &education.Group, &education.CountBudget, &education.CountContract, &education.Price, &education.Subject1, &education.Subject2, &education.Subject3, &education.Value1, &education.Value2, &education.Value3, &education.Sum, &education.CompetiveB, &education.CompetiveK); err != nil {
+			return nil, err
+		}
+		educationalDirections = append(educationalDirections, education)
+	}
+
+	return educationalDirections, nil
+}

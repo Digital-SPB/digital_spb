@@ -19,6 +19,7 @@ type StudentAuth interface {
 type EducationalDirection interface {
 	CreateEducationalDirection(ctx context.Context, education entity.EducatitionalDirection) (int, error)
 	CountEducationalDirection(ctx context.Context) (int, error)
+	GetEducationalDirectionForApplicant(ctx context.Context, applicantId int) ([]entity.EducatitionalDirection, error)
 }
 
 type Vacancy interface {
@@ -27,7 +28,7 @@ type Vacancy interface {
 }
 
 type StudyPlan interface {
-	GetStudyPlans(ctx context.Context, vacancy entity.Vacancy, examMarks []ExamMarks) ([]entity.EducatitionalDirection, error)
+	GetStudyPlans(ctx context.Context, id int) ([]entity.EducatitionalDirection, error)
 }
 
 type Services struct {
@@ -47,9 +48,9 @@ type ServicesDependencies struct {
 
 func NewServices(deps ServicesDependencies) *Services {
 	return &Services{
-		EducationalDirection: NewEducationalDirectionService(deps.Repos.EducationalDirection),
+		EducationalDirection: NewEducationalDirectionService(deps.Repos.EducationalDirection, deps.Repos.Applicant, deps.Repos.Vacancy),
 		Vacancy:              NewVacancyService(deps.Repos.Vacancy),
 		StudentAuth:          NewStudentAuthService(deps.Repos.StudentAuth),
-		StudyPlan:            NewStudyPlanService(deps.Repos.EducationalDirection),
+		StudyPlan:            NewStudyPlanService(deps.Repos.EducationalDirection, deps.Repos.Applicant),
 	}
 }

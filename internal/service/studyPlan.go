@@ -9,12 +9,16 @@ import (
 
 type StudyPlanService struct {
 	educationalDirectionRepo repo.EducationalDirection
+	applicantRepo            repo.Applicant
 }
 
-func NewStudyPlanService(educationalDirectionRepo repo.EducationalDirection) *StudyPlanService {
-	return &StudyPlanService{educationalDirectionRepo: educationalDirectionRepo}
+func NewStudyPlanService(educationalDirectionRepo repo.EducationalDirection, applicantRepo repo.Applicant) *StudyPlanService {
+	return &StudyPlanService{
+		educationalDirectionRepo: educationalDirectionRepo,
+		applicantRepo:            applicantRepo,
+	}
 }
 
-func (s *StudyPlanService) GetStudyPlans(ctx context.Context, vacancy entity.Vacancy, examMarks []ExamMarks) ([]entity.EducatitionalDirection, error) {
+func (s *StudyPlanService) GetStudyPlans(ctx context.Context, id int) ([]entity.EducatitionalDirection, error) {
 	return []entity.EducatitionalDirection{}, nil
 }
