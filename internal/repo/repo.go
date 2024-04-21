@@ -23,10 +23,15 @@ type Vacancy interface {
 	CountVacancy(ctx context.Context) (int, error)
 }
 
+type Applicant interface {
+	GetApplicant(ctx context.Context, id int) (entity.Applicant, error)
+}
+
 type Repositories struct {
 	EducationalDirection
 	StudentAuth
 	Vacancy
+	Applicant
 }
 
 func NewRepositories(pg *postgres.Postgres) *Repositories {
@@ -34,5 +39,6 @@ func NewRepositories(pg *postgres.Postgres) *Repositories {
 		EducationalDirection: pgdb.NewEducationalDirectionRepo(pg),
 		StudentAuth:          pgdb.NewStudentAuthRepo(pg),
 		Vacancy:              pgdb.NewVacancyRepo(pg),
+		Applicant:            pgdb.NewApplicantRepo(pg),
 	}
 }

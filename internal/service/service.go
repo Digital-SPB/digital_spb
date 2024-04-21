@@ -37,6 +37,10 @@ type Services struct {
 	StudentAuth
 }
 
+type Applicant interface {
+	GetApplicant(ctx context.Context, id int) (entity.Applicant, error)
+}
+
 type ServicesDependencies struct {
 	Repos *repo.Repositories
 }

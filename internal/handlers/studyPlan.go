@@ -15,7 +15,7 @@ type ApplicantInput struct {
 	ExamMarks []ExamMarks `json:"exam_marks"`
 	Vacancy   string      `json:"vacancy"`
 }
-
+ 
 func (h *Handler) ApplicantStudyPlan(c *gin.Context) {
 	var input ApplicantInput
 	if err := c.BindJSON(&input); err != nil {
