@@ -20,7 +20,7 @@ const (
 )
 
 func init() {
-	os.Setenv("PG_URL", "postgres://root:root@localhost:5432/spb")
+	os.Setenv("PG_URL", "postgres://user:password@db:5432/spb")
 	databaseURL := os.Getenv("PG_URL")
 	if len(databaseURL) == 0 {
 		log.Fatalf("migrate: environment variable not declared: PG_URL")
@@ -39,6 +39,8 @@ func init() {
 		if err == nil {
 			break
 		}
+
+		log.Printf("error creating migration ", err.Error())
 
 		log.Printf("Migrate: pgdb is trying to connect to the database. Attempts left: %d", attempts)
 		time.Sleep(defaultTimeout)
