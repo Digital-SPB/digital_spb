@@ -13,12 +13,18 @@ type EducationalDirection interface {
 	CountEducationalDirection(ctx context.Context) (int, error)
 }
 
+type StudentAuth interface {
+	CreateStudent(ctx context.Context, input entity.Student) (int, error)
+}
+
 type Repositories struct {
 	EducationalDirection
+	StudentAuth
 }
 
 func NewRepositories(pg *postgres.Postgres) *Repositories {
 	return &Repositories{
 		EducationalDirection: pgdb.NewEducationalDirectionRepo(pg),
+		StudentAuth:          pgdb.NewStudentAuthRepo(pg),
 	}
 }

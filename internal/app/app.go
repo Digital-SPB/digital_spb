@@ -10,6 +10,7 @@ import (
 	log "github.com/sirupsen/logrus"
 
 	"github.com/greenblat17/digital_spb/config"
+	"github.com/greenblat17/digital_spb/internal/handlers"
 	"github.com/greenblat17/digital_spb/internal/repo"
 	"github.com/greenblat17/digital_spb/internal/service"
 	data "github.com/greenblat17/digital_spb/pkg/data"
@@ -64,11 +65,13 @@ func Run(configPath string) {
 	_ = data.ScanEducationalDirection()
 
 	// Handler
+	log.Info("Initializing handlers...")
+	handler := handlers.NewHandler(services)
 
 	// HTTP server
 	log.Info("Starting HTTP server...")
 	log.Debugf("Starting port: %s", cfg.HTTP.Port)
-	httpServer := httpserver.New(nil, httpserver.Port(cfg.HTTP.Port))
+	httpServer := httpserver.New(handler.InitRoutes(), httpserver.Port(cfg.HTTP.Port))
 
 	// Waiting signal
 	log.Info("Configuring graceful shutdown...")

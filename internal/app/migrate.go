@@ -20,8 +20,9 @@ const (
 )
 
 func init() {
-	databaseURL, ok := os.LookupEnv("PG_URL")
-	if !ok || len(databaseURL) == 0 {
+	os.Setenv("PG_URL", "postgres://root:root@localhost:5432/spb")
+	databaseURL := os.Getenv("PG_URL")
+	if len(databaseURL) == 0 {
 		log.Fatalf("migrate: environment variable not declared: PG_URL")
 	}
 
