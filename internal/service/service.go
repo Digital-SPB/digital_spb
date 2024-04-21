@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/greenblat17/digital_spb/internal/entity"
+	"github.com/greenblat17/digital_spb/internal/handlers"
 	"github.com/greenblat17/digital_spb/internal/repo"
 )
 
@@ -22,9 +23,14 @@ type Vacancy interface {
 	CountVacancy(ctx context.Context) (int, error)
 }
 
+type StudyPlan interface {
+	GetStudyPlans(ctx context.Context, vacancy entity.Vacancy, examMarks []handlers.ExamMarks) ([]entity.EducatitionalDirection, error)
+}
+
 type Services struct {
 	EducationalDirection EducationalDirection
 	Vacancy              Vacancy
+	StudyPlan            StudyPlan
 	StudentAuth
 }
 
@@ -37,5 +43,6 @@ func NewServices(deps ServicesDependencies) *Services {
 		EducationalDirection: NewEducationalDirectionService(deps.Repos.EducationalDirection),
 		Vacancy:              NewVacancyService(deps.Repos.Vacancy),
 		StudentAuth:          NewStudentAuthService(deps.Repos.StudentAuth),
+		StudyPlan: NewStudyPlanService(deps.Repos.),
 	}
 }
