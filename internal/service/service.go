@@ -7,6 +7,10 @@ import (
 	"github.com/greenblat17/digital_spb/internal/repo"
 )
 
+type StudentAuth interface {
+	CreateStudent(ctx context.Context, input entity.Student) (int, error)
+}
+
 type EducationalDirection interface {
 	CreateEducationalDirection(ctx context.Context, education entity.EducatitionalDirection) (int, error)
 	CountEducationalDirection(ctx context.Context) (int, error)
@@ -20,6 +24,7 @@ type Vacancy interface {
 type Services struct {
 	EducationalDirection EducationalDirection
 	Vacancy              Vacancy
+	StudentAuth
 }
 
 type ServicesDependencies struct {
@@ -30,5 +35,6 @@ func NewServices(deps ServicesDependencies) *Services {
 	return &Services{
 		EducationalDirection: NewEducationalDirectionService(deps.Repos.EducationalDirection),
 		Vacancy:              NewVacancyService(deps.Repos.Vacancy),
+		StudentAuth:          NewStudentAuthService(deps.Repos.StudentAuth),
 	}
 }

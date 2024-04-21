@@ -13,6 +13,10 @@ type EducationalDirection interface {
 	CountEducationalDirection(ctx context.Context) (int, error)
 }
 
+type StudentAuth interface {
+	CreateStudent(ctx context.Context, input entity.Student) (int, error)
+}
+
 type Vacancy interface {
 	CreateVacancy(ctx context.Context, vacancy entity.Vacancy) (int, error)
 	CountVacancy(ctx context.Context) (int, error)
@@ -20,12 +24,14 @@ type Vacancy interface {
 
 type Repositories struct {
 	EducationalDirection
+	StudentAuth
 	Vacancy
 }
 
 func NewRepositories(pg *postgres.Postgres) *Repositories {
 	return &Repositories{
 		EducationalDirection: pgdb.NewEducationalDirectionRepo(pg),
+		StudentAuth:          pgdb.NewStudentAuthRepo(pg),
 		Vacancy:              pgdb.NewVacancyRepo(pg),
 	}
 }
