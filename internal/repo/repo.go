@@ -17,6 +17,10 @@ type StudentAuth interface {
 	CreateStudent(ctx context.Context, input entity.Student) (int, error)
 }
 
+type StudyPlan interface {
+	GetStudyPlans(ctx context.Context) ([]StudyPlan, error)
+}
+
 type Vacancy interface {
 	CreateVacancy(ctx context.Context, vacancy entity.Vacancy) (int, error)
 	CountVacancy(ctx context.Context) (int, error)

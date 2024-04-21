@@ -58,8 +58,7 @@ func ScanVacancy(services *service.Services) {
 				continue
 			}
 			vacancy := entity.Vacancy{
-				Name:      v[1],
-				Education: v[0],
+				Name: v[1],
 			}
 			existVacancy[v[1]] = true
 			services.Vacancy.CreateVacancy(context.Background(), vacancy)

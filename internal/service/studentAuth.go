@@ -28,7 +28,7 @@ func NewStudentAuthService(repo repo.StudentAuth) *StudentAuthService {
 }
 
 func (s *StudentAuthService) CreateStudent(ctx context.Context, input entity.Student) (int, error) {
-	 input.Password = s.generatePasswordHash(input.Password)
+	input.Password = s.generatePasswordHash(input.Password)
 
 	// return a.repo.CreateAdmin(c, input)
 	return s.repo.CreateStudent(ctx, input)

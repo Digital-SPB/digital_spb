@@ -21,9 +21,9 @@ func (r *VacancyRepo) CreateVacancy(ctx context.Context, vacancy entity.Vacancy)
 	log.Info("Creating vacancy: ", vacancy)
 
 	var id int
-	query := "INSERT INTO vacancy (name, education) VALUES ($1, $2) RETURNING id"
+	query := "INSERT INTO vacancy (name) VALUES ($1) RETURNING id"
 
-	row := r.Pool.QueryRow(ctx, query, vacancy.Name, vacancy.Education)
+	row := r.Pool.QueryRow(ctx, query, vacancy.Name)
 	if err := row.Scan(&id); err != nil {
 		return 0, err
 	}

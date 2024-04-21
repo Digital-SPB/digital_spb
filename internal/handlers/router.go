@@ -20,12 +20,14 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 	api := router.Group("api/v1")
 	{
-		applicant := api.Group("/applicant")
+		applicant := api.Group("/applicants")
 		{
 			applicant.POST("sign-up", h.ApplicantSignUp)
 			applicant.GET("sign-in", h.ApplicantSignIn)
+			applicant.GET("study-plan", h.ApplicantStudyPlan)
 		}
-		student := api.Group("/student")
+
+		student := api.Group("/students")
 		{
 			student.POST("sign-up", h.StudentSignUp)
 			student.GET("sign-in", h.StudentSignIn)
