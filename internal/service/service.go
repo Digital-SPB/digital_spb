@@ -9,6 +9,7 @@ import (
 
 type StudentAuth interface {
 	CreateStudent(ctx context.Context, input entity.Student) (int, error)
+	GenerateToken(ctx context.Context, eMail, password string) (string, error)
 }
 
 type EducationalDirection interface {

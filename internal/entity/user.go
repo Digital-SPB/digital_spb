@@ -30,7 +30,7 @@ type Student struct {
 	Patronymic string `json:"patronymic" binding:"required" db:"patronymic"`
 
 	//1 форма
-	EMail    string `json:"eMail" binding:"required" db:"email"`
+	EMail    string `json:"email" binding:"required" db:"email"`
 	Password string `json:"password" binding:"required" db:"password_hash"`
 
 	//3 форма

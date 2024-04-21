@@ -15,6 +15,7 @@ type EducationalDirection interface {
 
 type StudentAuth interface {
 	CreateStudent(ctx context.Context, input entity.Student) (int, error)
+	GetStudent(ctx context.Context, eMail, paswwrord string) (entity.Student, error) 
 }
 
 type StudyPlan interface {
