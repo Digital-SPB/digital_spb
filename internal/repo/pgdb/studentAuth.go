@@ -2,9 +2,11 @@ package pgdb
 
 import (
 	"context"
+	"errors"
 
 	"github.com/greenblat17/digital_spb/internal/entity"
 	"github.com/greenblat17/digital_spb/pkg/postgres"
+	"github.com/jackc/pgx/v5"
 )
 
 type StudentAuthRepo struct {
@@ -15,20 +17,27 @@ func NewStudentAuthRepo(pg *postgres.Postgres) *StudentAuthRepo {
 	return &StudentAuthRepo{pg}
 }
 
-// func (r *EducationalDirectionRepo) CreateEducationalDirection(ctx context.Context, education entity.EducatitionalDirection) (int, error) {
-// 	var id int
-// 	query := "INSERT INTO educational_direction (name, group_name, count_budget, count_contact, price, subject1, subject2, subject3, value1, value2, value3, sum, competive_b, competive_k) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING id"
-
-// 	row := r.Pool.QueryRow(ctx, query, education.Name, education.Group, education.CountBudget, education.CountContract,
-// 		education.Price, education.Subject1, education.Subject2, education.Subject3, education.Value1, education.Value2, education.Value3, education.Sum, education.CompetiveB, education.CompetiveK)
-// 	if err := row.Scan(&id); err != nil {
-// 		return 0, err
-// 	}
-
-// 	return id, nil
-// }
-
 func (r *StudentAuthRepo) CreateStudent(ctx context.Context, input entity.Student) (int, error) {
+	var id int
+	query := "INSERT INTO students (name, sure_name, patronymic, email, password_hash, university, direction, group_number) values ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING  id"
+	row := r.Pool.QueryRow(ctx, query, input.Name, input.SureName, input.Patronymic, input.EMail, input.Password, input.University, input.Direction, input.Group)
+	if err := row.Scan(&id); err != nil {
+		return 0, err
+	}
 
-	return 0, nil
+	return id, nil
+}
+
+func (r *StudentAuthRepo) GetStudent(ctx context.Context, eMail, paswwrord string) (entity.Student, error) {
+	var student entity.Student
+	query := "SELECT * FROM students WHERE email = $1 AND password_hash = $2"
+	row := r.Pool.QueryRow(ctx, query, eMail, paswwrord)
+	if err := row.Scan(&student.Id, &student.Name, &student.SureName, &student.Patronymic, &student.EMail, &student.Password, &student.University, &student.Direction, &student.Group); err!=nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return entity.Student{}, errors.New("student not found")
+		}
+		return entity.Student{}, err
+	}
+
+	return entity.Student{}, nil
 }
