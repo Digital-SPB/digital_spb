@@ -74,3 +74,24 @@ func (r *VacancyRepo) GetVacanciesByEducationId(ctx context.Context, educationId
 
 	return vacancies, nil
 }
+
+func (r *VacancyRepo) GetVacancies(ctx context.Context) ([]entity.Vacancy, error) {
+	query := "SELECT * FROM vacancy"
+	rows, err := r.Pool.Query(ctx, query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var vacancies []entity.Vacancy
+	for rows.Next() {
+		var vacancy entity.Vacancy
+		if err := rows.Scan(&vacancy.Id, &vacancy.Name); err != nil {
+			return nil, err
+		}
+
+		vacancies = append(vacancies, vacancy)
+	}
+
+	return vacancies, nil
+}

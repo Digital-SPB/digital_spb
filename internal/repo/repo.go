@@ -23,6 +23,7 @@ type Vacancy interface {
 	CreateVacancy(ctx context.Context, vacancy entity.Vacancy) (int, error)
 	CountVacancy(ctx context.Context) (int, error)
 	GetVacanciesByEducationId(ctx context.Context, educationId int) ([]entity.Vacancy, error)
+	GetVacancies(ctx context.Context) ([]entity.Vacancy, error)
 }
 
 type Applicant interface {

@@ -24,7 +24,8 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		{
 			applicant.POST("sign-up", h.ApplicantSignUp)
 			applicant.GET("sign-in", h.ApplicantSignIn)
-			applicant.GET("study-plan", h.ApplicantStudyPlan)
+			applicant.GET(":id/study-plan", h.ApplicantStudyPlan)
+			applicant.GET("vacancies", h.ApplicantVacancies)
 		}
 
 		student := api.Group("/students")

@@ -25,6 +25,7 @@ type EducationalDirection interface {
 type Vacancy interface {
 	CreateVacancy(ctx context.Context, vacancy entity.Vacancy) (int, error)
 	CountVacancy(ctx context.Context) (int, error)
+	GetVacancies(ctx context.Context) ([]entity.Vacancy, error)
 }
 
 type StudyPlan interface {

@@ -3,6 +3,7 @@ package handlers
 import (
 	"context"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -23,7 +24,12 @@ func (h *Handler) ApplicantStudyPlan(c *gin.Context) {
 		newErrorResponse(c, http.StatusBadRequest, "invalid input body")
 	}
 
-	educations, err := h.service.EducationalDirection.GetEducationalDirectionForApplicant(context.Background(), 1)
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+	educations, err := h.service.EducationalDirection.GetEducationalDirectionForApplicant(context.Background(), id)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return

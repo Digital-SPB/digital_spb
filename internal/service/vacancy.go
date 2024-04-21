@@ -22,3 +22,7 @@ func (s *VacancyService) CreateVacancy(ctx context.Context, vacancy entity.Vacan
 func (s *VacancyService) CountVacancy(ctx context.Context) (int, error) {
 	return s.vacancyRepo.CountVacancy(ctx)
 }
+
+func (s *VacancyService) GetVacancies(ctx context.Context) ([]entity.Vacancy, error) {
+	return s.vacancyRepo.GetVacancies(ctx)
+}
