@@ -1,7 +1,6 @@
 package app
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"os/signal"
@@ -49,20 +48,9 @@ func Run(configPath string) {
 
 	_ = services
 
-	// Scan Data
-	count, err := repositories.EducationalDirection.CountEducationalDirection(context.Background())
-	if err != nil {
-		log.Fatal("error scanning count educational direction")
-	}
-	log.Info("count: ", count)
-	if count == 0 {
-		log.Info("Initializing data...")
-		s := data.ScanEducationalDirection()
-		for _, v := range s {
-			repositories.EducationalDirection.CreateEducationalDirection(context.Background(), v)
-		}
-	}
-	_ = data.ScanEducationalDirection()
+	// Init Data
+	data.ScanEducationalDirection(services)
+	data.ScanVacancy(services)
 
 	// Handler
 	log.Info("Initializing handlers...")

@@ -1,6 +1,7 @@
 package entity
 
 type EducatitionalDirection struct {
+	Id            int     `json:"id" db:"id" binding:"required"`
 	Name          string  `json:"Направление"`
 	Group         string  `json:"Конкурсн. группа"`
 	CountBudget   int     `json:"КЦП_Б"`
